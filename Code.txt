@@ -1,0 +1,142 @@
+<?php 
+
+  $ch = curl_init('https://coderbyte.com/api/challenges/json/age-counting');
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  $data = curl_exec($ch);
+  curl_close($ch);
+
+  $response=json_decode($data,true);
+  $items=explode(',',$response['data']);
+  $count= 0;
+
+ 
+
+  $sj_response=json_decode($data, true);
+  print_r(preg_match_all('/(age)=[5-9][0-9]/',$sj_response['data']));
+  
+
+ 
+?>
+
+
+function MatchingCharacters(str) { 
+
+  // code goes here  
+ // return str; 
+ //console.log(str);
+ var count=0;
+ for(var i=0;i<str.length;i++)
+ {
+   var charobj={}
+   var lastindx=str.lastIndexOf(str[i])
+   if(i==lastindx)continue
+    for(var j=i+1;j<lastindx;j++)
+    {
+      if(charobj[str[j]]==undefined)
+      charobj[str[j]]=str[j]
+    }
+    if(count<Object.keys(charobj).length)
+    count=Object.keys(charobj).length
+ }
+console.log(count);
+}
+   
+// keep this function call here 
+console.log(MatchingCharacters(readline()));
+
+
+
+function TreeConstructor(strArr) { 
+
+  // code goes here  
+  //return strArr; 
+  let parents={};
+  let children={};
+
+  for(let i=0; i<strArr.length;i++)
+  {
+    let pair = strArr[i].replace(/[()]/g,"").split(",");
+    let child=pair[0];
+    let parent=pair[1];
+
+    if(parents[parent])
+    {
+      parents[parent].push(child);
+    }
+    else{
+      parents[parent]=[child];
+    }
+    if(parents[parent].length>2)
+    {
+      return false;
+    } 
+
+    if(children[child])  
+    {
+      return false;
+    }
+    else
+    {
+      children[child]=parent;
+    }
+
+  }
+  return true;
+}
+   
+// keep this function call here 
+console.log(TreeConstructor(readline()));
+
+
+function BitmapHoles(strArr) { 
+
+  // code goes here  
+  //return strArr; 
+  let bitmap=strArr.map(a=>a.split(''));
+  console.log(bitmap)
+  let count=2;
+
+  for(let i=0; i<bitmap.length;i++)
+  {
+    for(let j=0; j<bitmap[i].length;j++)
+    {
+      if(bitmap[i][j]==='0')
+      {
+        coverHole(bitmap,i,j,count++);
+      }
+    }
+  }
+    return count -2;
+}
+function coverHole(bitmap,i,j,number)
+{
+  bitmap[i][j]=number;
+  if(+bitmap[i][j-1]===0)
+  {
+    bitmap[i][j-1]=number;
+    coverHole(bitmap,i,j-1,number);
+  }
+
+  if(+bitmap[i][j+1]===0)
+  {
+    bitmap[i][j+1]=number;
+    coverHole(bitmap,i,j+1,number);
+  }
+
+  if(bitmap[i-1]!==undefined && +bitmap[i-1][j]===0)
+  {
+    bitmap[i-1][j]=number;
+    coverHole(bitmap,i-1,j,number);
+  }
+
+  if(bitmap[i+1]!==undefined && +bitmap[i+1][j]===0)
+  {
+    bitmap[i+1][j]=number;
+    coverHole(bitmap,i+1,j,number);
+  }
+  return;
+}
+   
+// keep this function call here 
+console.log(BitmapHoles(readline()));
