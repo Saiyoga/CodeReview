@@ -1,24 +1,17 @@
-<?php 
 
-  $ch = curl_init('https://coderbyte.com/api/challenges/json/age-counting');
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  $data = curl_exec($ch);
-  curl_close($ch);
-
-  $response=json_decode($data,true);
-  $items=explode(',',$response['data']);
-  $count= 0;
-
- 
-
-  $sj_response=json_decode($data, true);
-  print_r(preg_match_all('/(age)=[5-9][0-9]/',$sj_response['data']));
-  
-
- 
-?>
-
+let root = document.getElementById("root");
+$(document).ready(function(){
+  $("#root").click(function(){ 
+    if(root.value === "on"){
+      root.value="off";
+    }
+    else{
+      root.value="on";
+    }
+  });
+ });
+const rootApp = document.getElementById("root");
+rootApp.innerHTML = '<button id = "btn">ON</button>';
 
 function MatchingCharacters(str) { 
 
@@ -44,6 +37,34 @@ console.log(count);
    
 // keep this function call here 
 console.log(MatchingCharacters(readline()));
+
+
+
+
+<?php 
+	/*cURL stands for ‘Client for URLs
+	 curl_init()=initiate the curl a new session and return a cURL handle
+	 curl_setopt()= sets an option for a cURL session identified by the ch parameter
+		curl_setopt($ch, option, value)=> Option specifies which option is to set, and value specifies the value for the given option.
+
+  $ch = curl_init('https://coderbyte.com/api/challenges/json/age-counting');
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//set to TRUE to return the transfer as a string of the return value of curl_exec()
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  $data = curl_exec($ch);//It grab URL and pass it to the variable for showing output.
+  curl_close($ch);//It close curl resource, and free up system resources.
+
+	//JSON: JavaScript Object Notation data-interchange format
+
+  $response=json_decode($data,true);//Decodes a JSON string
+  $items=explode(',',$response['data']); //Splitting it with , as the separator key=IAfpK, age=58,
+  $count= 0;
+
+ 
+
+  $sj_response=json_decode($data, true);
+  print_r(preg_match_all('/(age)=[5-9][0-9]/',$sj_response['data']));//checks that a value contains the digits zero to nine; any number of them, and in any sequence.
+  
+?>
 
 
 
